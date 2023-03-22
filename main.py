@@ -1,4 +1,4 @@
-from classification import Knn
+from knn import Knn
 
 
 def get_dataset_from_file(filename):
@@ -38,7 +38,6 @@ for i, name in enumerate(classes_list):
     for j, _ in enumerate(classes_list):
         print(confusion_matrix[i][j], end="\t")
     print("")
-
 
 print(f"\nAccuracy: {(len(val_set)-errors)/len(val_set)}")
 print(f"Test set size: {len(val_set)}")
