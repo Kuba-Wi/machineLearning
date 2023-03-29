@@ -1,4 +1,19 @@
-from random import randrange
+import helpers as h
+
+
+def get_dataset_from_file(filename):
+    dataset = []
+    with open(filename) as file:
+        for line in file:
+            if line == "\n":
+                break
+
+            items = line.split(',')
+            for i in range(len(items) - 1):
+                items[i] = float(items[i])
+            items[-1] = items[-1].removesuffix("\n")
+            dataset.append(items)
+    return dataset
 
 
 class Knn:
@@ -24,3 +39,15 @@ class Knn:
             distances.pop(distances.index((cls, dist)))
 
         return max(class_count, key=class_count.get)
+
+
+if __name__ == "__main__":
+    train_set = get_dataset_from_file("iris_train.data")
+    val_set = get_dataset_from_file("iris_val.data")
+    knn = Knn(3)
+    knn.set_features(train_set)
+
+    classes_list = list({x[-1] for x in train_set})
+    errors, confusion_matrix = h.count_errors_and_confusion_matrix(knn.predict, classes_list, val_set)
+
+    h.print_results(classes_list, confusion_matrix, val_set, errors)
