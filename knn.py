@@ -50,4 +50,4 @@ if __name__ == "__main__":
     classes_list = list({x[-1] for x in train_set})
     errors, confusion_matrix = h.count_errors_and_confusion_matrix(knn.predict, classes_list, val_set)
 
-    h.print_results(classes_list, confusion_matrix, val_set, errors)
+    h.print_results(classes_list, len(val_set), confusion_matrix, errors)

@@ -11,7 +11,7 @@ def count_errors_and_confusion_matrix(predict_func, classes_list, val_set):
     return errors, confusion_matrix
 
 
-def print_results(classes_list, confusion_matrix, val_set, errors):
+def print_results(classes_list, set_size, confusion_matrix, errors):
     print("prediction\\real ", end="")
     for val in classes_list:
         print(f"{val}", end="\t")
@@ -22,6 +22,6 @@ def print_results(classes_list, confusion_matrix, val_set, errors):
             print(confusion_matrix[i][j], end="\t")
         print("")
 
-    print(f"\nAccuracy: {(len(val_set) - errors) / len(val_set)}")
-    print(f"Test set size: {len(val_set)}")
+    print(f"\nAccuracy: {(set_size - errors) / set_size}")
+    print(f"Test set size: {set_size}")
     print(f"Errors: {errors}")
