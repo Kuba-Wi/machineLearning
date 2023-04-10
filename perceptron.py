@@ -9,28 +9,21 @@ class Perceptron:
 
     def train(self, train_set):
         ITERATION_LIMIT = 100
-        train_arr = self.__prepare_arrays(train_set)
-        for x in train_arr:
-            product = np.dot(x[:-1], self.w)
-            cls = -1 if product < 0 else 1
-            iters = 0
-            while cls != x[-1] and iters < ITERATION_LIMIT:
-                iters += 1
-                for i in range(len(self.w)):
-                    self.w[i] = self.w[i] + self.learning_rate * (x[-1] - cls) * x[i]
-                product = sum(np.multiply(x[:-1], self.w))
-                cls = -1 if product <= 0 else 1
+        self.w = np.zeros(train_set.shape[1])
+        train_array = np.concatenate([np.ones((train_set.shape[0], 1)), train_set], axis=1)
+        for _ in range(ITERATION_LIMIT):
+            for x in train_array:
+                product = np.dot(x[:-1], self.w)
+                cls = 0 if product < 0 else 1
+                if cls != x[-1]:
+                    for i in range(len(self.w)):
+                        self.w[i] += self.learning_rate * (x[-1] - cls) * x[i]
+
+    def prediction_product(self, sample):
+        return np.dot(sample, self.w[1:]) + self.w[0]
 
     def predict(self, sample):
-        product = np.dot(sample, self.w[1:]) + self.w[0]
-        return 0 if product <= 0 else 1
-
-    def __prepare_arrays(self, train_set):
-        self.w = np.zeros(train_set.shape[1])
-        x = np.concatenate([np.ones((train_set.shape[0], 1)), train_set], axis=1)
-        arr = x[:, -1]
-        np.place(arr, arr == 0, -1)
-        return x
+        return 0 if self.prediction_product(sample) < 0 else 1
 
 
 if __name__ == '__main__':
