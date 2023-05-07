@@ -11,6 +11,19 @@ def count_errors_and_confusion_matrix(predict_func, classes_list, val_set):
     return errors, confusion_matrix
 
 
+def count_errors_and_confusion_matrix_sklearn(predict_func, classes_list, val_set):
+    confusion_matrix = [[0 for _ in classes_list] for i in classes_list]
+
+    errors = 0
+    prediction = predict_func(val_set[:, :-1])
+    for i in range(len(val_set)):
+        if prediction[i] != val_set[i][-1]:
+            errors += 1
+        confusion_matrix[classes_list.index(prediction[i])][classes_list.index(val_set[i][-1])] += 1
+
+    return errors, confusion_matrix
+
+
 def print_results(classes_list, set_size, confusion_matrix, errors):
     print("prediction\\real ", end="")
     for val in classes_list:

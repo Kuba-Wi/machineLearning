@@ -28,7 +28,10 @@ class PerceptronsHolder:
         pred_dict = {'Iris-setosa': self.p_setosa.prediction_product(sample),
                      'Iris-versicolor': self.p_versicolor.prediction_product(sample),
                      'Iris-virginica': self.p_virginica.prediction_product(sample)}
-        return max(pred_dict, key=pred_dict.get)
+        max_key = max(pred_dict, key=pred_dict.get)
+        if pred_dict[max_key] < 0:
+            return 'Iris-versicolor'
+        return max_key
 
 
 if __name__ == "__main__":
