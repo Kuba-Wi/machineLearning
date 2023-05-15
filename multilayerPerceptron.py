@@ -4,8 +4,8 @@ import pandas as pd
 import helpers as h
 
 if __name__ == '__main__':
-    train_set = np.array(pd.read_csv("iris_train.data", header=None))
-    val_set = np.array(pd.read_csv("iris_val.data", header=None))
+    train_set = np.array(pd.read_csv("optdigits_train.data", header=None))
+    val_set = np.array(pd.read_csv("optdigits_val.data", header=None))
 
     model = MLPClassifier()
     model = model.fit(train_set[:, :-1], train_set[:, -1])

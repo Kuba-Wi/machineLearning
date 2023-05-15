@@ -1,5 +1,8 @@
 import helpers as h
 
+import numpy as np
+import pandas as pd
+
 
 def get_dataset_from_file(filename):
     dataset = []
@@ -42,8 +45,10 @@ class Knn:
 
 
 if __name__ == "__main__":
-    train_set = get_dataset_from_file("iris_train.data")
-    val_set = get_dataset_from_file("iris_val.data")
+    # train_set = get_dataset_from_file("abalone_train.data")
+    # val_set = get_dataset_from_file("abalone_val.data")
+    train_set = np.array(pd.read_csv("optdigits_train.data", header=None))
+    val_set = np.array(pd.read_csv("optdigits_val.data", header=None))
     knn = Knn(3)
     knn.set_features(train_set)
 

@@ -21,12 +21,12 @@ def write_to_file(filename, data):
 
 if __name__ == "__main__":
     d = []
-    with open("iris.data") as file:
+    with open("optdigits.tra") as file:
         for line in file:
             if line != "\n":
                 d.append(line)
 
     train_set, val_set, test_set = split_train_val_test(d)
-    write_to_file("iris_train.data", train_set)
-    write_to_file("iris_val.data", val_set)
-    write_to_file("iris_test.data", test_set)
+    write_to_file("optdigits_train.data", train_set)
+    write_to_file("optdigits_val.data", val_set)
+    write_to_file("optdigits_test.data", test_set)
